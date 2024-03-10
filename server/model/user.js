@@ -1,8 +1,13 @@
 const { Schema, default: mongoose } = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    data: mongoose.Schema.Types.Mixed
-});
+    userId: {
+        type: String,
+        required: true,
+        unique: true
+    }
+
+}, { strict: false });
 
 
 module.exports = mongoose.model('user', userSchema);
