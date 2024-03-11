@@ -11,7 +11,9 @@ router.post('/:userId/:resource', userController.createUserData);
 
 router.get('/Dashboard/:userId', userController.getFieldNames);
 
-router.get('/:userId/:resource', userController.getUserData);
+router.get('/:userId/:resource', userController.getAllData);
+
+router.get('/:userId/:resource/:id', userController.getUserDataById);
 
 router.delete('/:userId/:resource/:id', userController.deleteUserData);
 

@@ -32,19 +32,17 @@ exports.getFieldNames = async (req, res) => {
 }
 
 
-exports.getUserData = async (req, res) => {
+exports.getAllData = async (req, res) => {
     try {
         const userId = req.params.userId;
         const resource = req.params.resource;
         const data = await User.find({ userId }, `${resource} -_id`);
-        // console.log(user);
+
         res.status(200).json(data[0][resource]);
 
     } catch (error) {
         console.error("Error fetching user data:", error);
-        res.status(500).json({
-            error: "Error fetching user data:"
-        });
+        res.status(500).json({ error: "Error fetching user data:" });
     }
 };
 
@@ -82,12 +80,18 @@ exports.createUserData = async (req, res) => {
 }
 
 exports.deleteUserData = async (req, res) => {
-    // const userId = req.params.userId;
-    try {
-        const deleteId = req.params.id;
-        await UserData.findByIdAndDelete(deleteId);
 
-        res.status(204).end();
+    try {
+        const userId = req.params.userId;
+        const resource = req.params.resource
+        const deleteId = req.params.id;
+        const user = await User.findOne({ userId: userId })
+
+        const updated = user[resource].filter(ele => ele.dataId != deleteId);
+
+        await User.findOneAndUpdate({ userId: userId }, { [resource]: updated })
+
+        res.status(204).json({ message: 'Data deleted successfully' });
     }
     catch (err) {
         console.error("Error deleting data", err);
@@ -97,9 +101,51 @@ exports.deleteUserData = async (req, res) => {
 
 exports.updateUserData = async (req, res) => {
     try {
+        const resource = req.params.resource;
+        const userId = req.params.userId;
+        const updateId = req.params.id;
+        const updatedData = req.body;
+        updatedData["dataId"] = updateId;
+        const user = await User.findOne({ userId: userId });
+
+        const indexToUpdate = user[resource].findIndex(ele => ele.dataId === updateId);
+
+        if (indexToUpdate === -1) {
+            return res.status(404).json({ error: 'Data not found' });
+        }
+
+        user[resource][indexToUpdate] = updatedData;
+
+
+        await User.findOneAndUpdate({ userId: userId }, { [resource]: user[resource] })
+
+        res.status(201).json({ message: 'updated data', updatedData });
 
     }
     catch (err) {
+        console.error("Error updating data", err);
+        res.status(500).json({ error: 'Internal Servor Error' });
+    }
+}
 
+exports.getUserDataById = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const resource = req.params.resource;
+        const dataId = req.params.id;
+
+        const user = await User.findOne({ userId: userId });
+
+        const getIndex = user[resource].findIndex(ele => ele.dataId === dataId);
+
+        if (getIndex === -1) {
+            return res.status(404).json('User data not found');
+        }
+
+        res.status(200).json(user[resource][getIndex]);
+    }
+    catch (err) {
+        console.error("error getting data", err);
+        res.status(500).json({ error: "Internal Sever Error" });
     }
 }
