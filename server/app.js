@@ -1,17 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const cookieParser = require('cookie-parser');
+const { userRemoverJob } = require("./scheduler/userDailyRemoveScheduler");
 require('dotenv').config();
 
 const app = express();
-app.use(cookieParser());
+
 app.use(express.json());
 
-const userRoute = require('./routes/user');
+const userRoute = require('./routes/resourceRoute');
 
 app.use(userRoute);
-
 
 mongoose.connect(process.env.DB_URL)
     .then(() => {
