@@ -1,41 +1,47 @@
-const User = require('../model/user');
+const User = require("../model/user");
 
-exports.createResource = async (userId) => {
+class ResourceService {
+  static async createResource(userId) {
     try {
-        await User.create({ userId });
+      await User.create({ userId });
     } catch (error) {
-        throw new Error('Error creating user');
+      throw new Error(error);
     }
-};
+  }
 
-exports.getAllResources = async (userId)=>{
-    try{
-        return await User.find({ userId: userId }, '-_id -userId -__v -currDate');
-    }catch (error) {
-        console.error("Error fetching field data:", error);
-    }
-}
-
-exports.findResource = async (userId) => {
+  static async getAllResources(userId) {
     try {
-        return await User.findOne({ userId });
+      return await User.find({ userId: userId }, "-_id -userId -__v -currDate");
     } catch (error) {
-        throw new Error('Error creating user');
+        throw new Error(error);
     }
-};
+  }
 
-exports.updateResource = async(userId,resource,newData)=>{
-    try{
-        return await User.updateOne({ userId: userId }, { [resource]: [newData] });
-    }catch(error){
-        res.status(500).json({ error: 'Error Occured while updating data' })
+  static async findResource(userId) {
+    try {
+      return await User.findOne({ userId });
+    } catch (error) {
+      throw new Error(error);
     }
-}
+  }
 
-exports.updateOneResource = async(userId,resource,updated)=>{
-    try{
-        await User.findOneAndUpdate({ userId: userId }, { [resource]: updated })
-    }catch{
-    res.status(500).json({ error: 'Error deleting data' })
+  static async updateResource(userId, resource, newData) {
+    try {
+      return await User.updateOne(
+        { userId: userId },
+        { [resource]: [newData] }
+      );
+    } catch (error) {
+        throw new Error(error);
     }
+  }
+
+  static async updateOneResource(userId, resource, updated) {
+    try {
+      await User.findOneAndUpdate({ userId: userId }, { [resource]: updated });
+    } catch(error){
+      throw new Error(error);
+    }
+  }
 }
+module.exports =  ResourceService ;
