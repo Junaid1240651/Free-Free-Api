@@ -1,9 +1,9 @@
 const User = require("../model/user");
 
 class ResourceService {
-  static async createResource(userId) {
+  static async createResource(userId, userRequests) {
     try {
-      await User.create({ userId });
+      await User.create({ userId, userRequests });
     } catch (error) {
       throw new Error(error);
     }
@@ -11,9 +11,12 @@ class ResourceService {
 
   static async getAllResources(userId) {
     try {
-      return await User.find({ userId: userId }, "-_id -userId -__v -currDate");
+      return await User.find(
+        { userId: userId },
+        "-_id -userId -__v -currDate -date_time"
+      );
     } catch (error) {
-        throw new Error(error);
+      throw new Error(error);
     }
   }
 
@@ -32,16 +35,16 @@ class ResourceService {
         { [resource]: [newData] }
       );
     } catch (error) {
-        throw new Error(error);
+      throw new Error(error);
     }
   }
 
   static async updateOneResource(userId, resource, updated) {
     try {
       await User.findOneAndUpdate({ userId: userId }, { [resource]: updated });
-    } catch(error){
+    } catch (error) {
       throw new Error(error);
     }
   }
 }
-module.exports =  ResourceService ;
+module.exports = ResourceService;
