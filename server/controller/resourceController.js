@@ -5,26 +5,23 @@ const ResourceService = require("../service/userServices");
 
 class ResourceController {
   static async getHomePage(req, res) {
-    const backPassword = process.env.PASSWORD;
-    const frontPassword = req.body.password;
-    if (frontPassword === backPassword) {
-      const id = uuid.v4().replace(/-/g, "");
+    const id = uuid.v4().replace(/-/g, "");
 
-      await ResourceService.createResource(id);
+    await ResourceService.createResource(id, 0);
 
-      res.json(id);
-    }else{
-      res.status(401).json({Error:"unauthorized"});
-    }
+    res.json(id);
   }
 
   static async getFieldNames(req, res) {
     try {
       const userId = req.params.userId;
       const userObject = await ResourceService.getAllResources(userId);
+
       const fields = Object.keys(userObject[0]).slice(3);
 
-      res.status(200).json(fields);
+      res
+        .status(200)
+        .json({ resource: fields, userRequests: userObject[0].userRequests });
     } catch (error) {
       res.status(500).json({
         error: "Error fetching field data:",
@@ -37,7 +34,6 @@ class ResourceController {
       const userId = req.params.userId;
       const resource = req.params.resource;
       const data = await ResourceService.getAllResources(userId);
-
       res.status(200).json(data[0][resource]);
     } catch (error) {
       res.status(500).json({ error: "Error fetching user data:" });
@@ -76,7 +72,7 @@ class ResourceController {
     }
   }
 
-  static async deleteUserData(req, res) {
+  static async deleteUserDataById(req, res) {
     try {
       const userId = req.params.userId;
       const resource = req.params.resource;
@@ -88,6 +84,37 @@ class ResourceController {
       await ResourceService.updateOneResource(userId, resource, updated);
 
       res.status(202).json({ message: "Data deleted successfully" });
+    } catch (err) {
+      res.status(500).json({ error: "Internal Servor Error" });
+    }
+  }
+
+  static async deleteUserDataByResource(req, res) {
+    try {
+      const userId = req.params.userId;
+      const resource = req.params.resource;
+      const user = await ResourceService.findResource(userId);
+
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      if (!user[resource]) {
+        return res
+          .status(404)
+          .json({ error: "Resource not found for this Resource Name" });
+      }
+
+      const result = await User.updateOne(
+        { userId: userId },
+        { $unset: { [resource]: "" } }
+      );
+
+      if (result.nModified === 0) {
+        return res.status(500).json({ error: "Failed to delete resource" });
+      }
+
+      res.status(202).json({ message: "Resource deleted successfully" });
     } catch (err) {
       res.status(500).json({ error: "Internal Servor Error" });
     }

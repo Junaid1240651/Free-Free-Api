@@ -1,22 +1,40 @@
-const express = require('express');
+const express = require("express");
+
+const userRequests = require("../middleware/userRequests");
 
 const router = express.Router();
 
-const ResourceController = require('../controller/resourceController');
+const ResourceController = require("../controller/resourceController");
 
-router.post('/', ResourceController.getHomePage);
+router.get("/Dashboard/:userId", ResourceController.getFieldNames);
 
-router.post('/:userId/:resource', ResourceController.createUserData);
+router.get("/:userId/:resource", ResourceController.getAllData);
 
-router.get('/Dashboard/:userId', ResourceController.getFieldNames);
+router.get("/:userId/:resource/:id", ResourceController.getUserDataById);
 
-router.get('/:userId/:resource', ResourceController.getAllData);
+router.get("/", ResourceController.getHomePage);
 
-router.get('/:userId/:resource/:id', ResourceController.getUserDataById);
+router.post(
+  "/:userId/:resource",
+  userRequests,
+  ResourceController.createUserData
+);
 
-router.delete('/:userId/:resource/:id', ResourceController.deleteUserData);
+router.put(
+  "/:userId/:resource/:id",
+  userRequests,
+  ResourceController.updateUserData
+);
 
-router.put('/:userId/:resource/:id', ResourceController.updateUserData);
-
+router.delete(
+  "/:userId/:id/:resource",
+  userRequests,
+  ResourceController.deleteUserDataById
+);
+router.delete(
+  "/:userId/:resource",
+  userRequests,
+  ResourceController.deleteUserDataByResource
+);
 
 module.exports = router;
