@@ -27,7 +27,7 @@ router.put(
 );
 
 router.delete(
-  "/:userId/:id/:resource",
+  "/:userId/:resource/:id",
   userRequests,
   ResourceController.deleteUserDataById
 );
