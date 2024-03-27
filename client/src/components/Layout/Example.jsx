@@ -29,7 +29,7 @@ function Example({ id }) {
             TestTest API will automatically create the resource.
           </p>
           <div className="overflow-x-auto bg-gray-950 text-white border border-black text-center rounded-md p-4 mt-4 mb-4 mx-6 text-sm">
-            https://testtest.com/api/{id}
+            https://stack-craft.vercel.app/{id}
           </div>
           <p>
             For example, let&aposs say you are building a &ldquo;Student
@@ -47,7 +47,7 @@ function Example({ id }) {
             your endpoint:
           </p>
           <div className="overflow-x-auto bg-gray-950 text-white border border-black text-center rounded-md p-4 mt-4 mb-4 mx-6 text-sm">
-            https://testtest.com/api/{id}/students
+            https://stack-craft.vercel.app/{id}/students
           </div>
           <p>
             Every time you click the button a POST request will be sent to your

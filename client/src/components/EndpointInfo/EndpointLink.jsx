@@ -12,7 +12,7 @@ const EndpointLink = () => {
     navigate(`/Dashboard/${Id}`);
     try {
       const response = await axios.get(
-        `http://localhost:3000/Dashboard/${Id}`,
+        `https://stack-craft.vercel.app/Dashboard/${Id}`,
         {
           id: Id,
         }
