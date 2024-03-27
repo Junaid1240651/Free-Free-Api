@@ -12,7 +12,7 @@ router.get("/:userId/:resource", ResourceController.getAllData);
 
 router.get("/:userId/:resource/:id", ResourceController.getUserDataById);
 
-router.get("/", ResourceController.getHomePage);
+router.post("/", ResourceController.getHomePage);
 
 router.post(
   "/:userId/:resource",
