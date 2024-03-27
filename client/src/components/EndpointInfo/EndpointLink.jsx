@@ -17,7 +17,6 @@ const EndpointLink = () => {
           id: Id,
         }
       );
-      console.log(response.data);
       setFieldNames(response.data);
     } catch (error) {
       console.log(error);
