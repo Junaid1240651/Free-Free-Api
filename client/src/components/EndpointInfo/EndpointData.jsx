@@ -7,8 +7,6 @@ const EndpointData = () => {
   const { resource, id } = useParams();
   const [data, setData] = useState(null);
 
-  console.log("Current resource:", resource, id);
-
   const getEndpointData = async () => {
     try {
       const response = await axios.get(
