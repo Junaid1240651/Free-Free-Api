@@ -12,7 +12,7 @@ const EndpointData = () => {
   const getEndpointData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/${id}/${resource}`
+        `https://stack-craft.vercel.app/${id}/${resource}`
       );
       setData(response.data);
     } catch (error) {

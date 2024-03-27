@@ -6,7 +6,7 @@ const useCreateEndPointId = () => {
 
   const createId = async () => {
     try {
-      const response = await axios.get("http://localhost:3000");
+      const response = await axios.post("https://stack-craft.vercel.app/");
       console.log(response.data);
       setId(response.data);
       localStorage.setItem("Id", response.data);
