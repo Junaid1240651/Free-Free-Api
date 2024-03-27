@@ -17,7 +17,7 @@ const EndpointData = () => {
       console.log(error);
     }
   };
-  console.log(data);
+ 
   useEffect(() => {
     getEndpointData();
   }, [resource]);
