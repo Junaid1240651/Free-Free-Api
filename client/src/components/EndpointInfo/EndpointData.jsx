@@ -12,21 +12,26 @@ const EndpointData = () => {
   const getEndpointData = async () => {
     try {
       const response = await axios.get(
-        `https://stack-craft.vercel.app/${id}/${resource}`
+        `https://testtestapi.vercel.app/${id}/${resource}`
       );
       setData(response.data);
     } catch (error) {
       console.log(error);
     }
   };
-
+  console.log(data);
   useEffect(() => {
     getEndpointData();
-  }, []);
-  if (!data) return <LoadingScreen />;
+  }, [resource]);
+  if (!data)
+    return (
+      <p className="h-[calc(100vh-56px)] overflow-auto bg-bgJson text-2xl text-white flex justify-center items-center ">
+        No Data Found with this Resource Name.
+      </p>
+    );
 
   return (
-    <pre className="h-[100vh] bg-bgJson">
+    <pre className="h-[calc(100vh-56px)] overflow-auto bg-bgJson">
       {data ? (
         data.map((item, index) => (
           <pre

@@ -12,7 +12,7 @@ const EndpointLink = () => {
     navigate(`/Dashboard/${Id}`);
     try {
       const response = await axios.get(
-        `https://stack-craft.vercel.app/Dashboard/${Id}`,
+        `https://testtestapi.vercel.app/Dashboard/${Id}`,
         {
           id: Id,
         }
@@ -37,7 +37,7 @@ const EndpointLink = () => {
           <div className="gap-6 flex flex-col justify-center items-center text-lg pt-6 sm:flex-col md:flex-row sm:justify-center">
             <div className="flex align-middle w-[100%] sm:w-[100%]  md:w-[70%]">
               <p className="text-gray-700 hidden sm:block rounded-md rounded-r-none  border-r-0 border-solid border-2 border-gray-600 px-3 py-1 select-none">
-                https://stack-craft.vercel.app/
+                https://testtestapi.vercel.app/
               </p>
               <input
                 value={Id}
