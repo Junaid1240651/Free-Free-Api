@@ -29,7 +29,7 @@ function Example({ id }) {
             TestTest API will automatically create the resource.
           </p>
           <div className="overflow-x-auto bg-gray-950 text-white border border-black text-center rounded-md p-4 mt-4 mb-4 mx-6 text-sm">
-            https://stack-craft.vercel.app/{id}
+            https://testtestapi.vercel.app/{id}
           </div>
           <p>
             For example, let&aposs say you are building a &ldquo;Student
@@ -47,7 +47,7 @@ function Example({ id }) {
             your endpoint:
           </p>
           <div className="overflow-x-auto bg-gray-950 text-white border border-black text-center rounded-md p-4 mt-4 mb-4 mx-6 text-sm">
-            https://stack-craft.vercel.app/{id}/students
+            https://testtestapi.vercel.app/{id}/students
           </div>
           <p>
             Every time you click the button a POST request will be sent to your
@@ -56,7 +56,7 @@ function Example({ id }) {
             <span> </span>
             <Link
               className="font-bold"
-              to="https://crudcrud.com/api/831596645f1a41b48326571a360a598f/students"
+              to={`https://testtestapi.vercel.app/${id}/students`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -158,7 +158,7 @@ function Example({ id }) {
           <strong>REST</strong>
         </h1>
         <div className="overflow-x-auto bg-sky-900 text-white border border-sky-900 rounded-md p-4 mb-2 mx-6 md:mx-[16vw] text-md">
-          https://stack-craft.vercel.app/{id}
+          https://testtestapi.vercel.app/{id}
         </div>
         <h1 className="text-md md:text-md lg:text-xl pb-3">
           Your <strong>TestTest REST endpoint</strong> is ready and running,
