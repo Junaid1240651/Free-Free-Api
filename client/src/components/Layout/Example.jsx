@@ -158,7 +158,7 @@ function Example({ id }) {
           <strong>REST</strong>
         </h1>
         <div className="overflow-x-auto bg-sky-900 text-white border border-sky-900 rounded-md p-4 mb-2 mx-6 md:mx-[16vw] text-md">
-          https://testtest.com/api/{id}
+          https://stack-craft.vercel.app/{id}
         </div>
         <h1 className="text-md md:text-md lg:text-xl pb-3">
           Your <strong>TestTest REST endpoint</strong> is ready and running,
